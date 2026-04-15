@@ -3,7 +3,7 @@ var config = {
     style: 'mapbox://styles/mapbox/light-v11',
     theme: 'light',
     use3dTerrain: false,
-    title: 'Project Yato',
+    title: 'Landscapes in Tension, Stories in Transition',
     subtitle: 'Bamen in Practice',
     byline: `<p style="margin-bottom: 1.6em;">Tucked between the hills of Yokosuka are the yato — residential alcoves that were, until recently, only reachable through a single entrance, their interiors hidden from the street. Built as the Naval Arsenal expanded through the Taishō and early Shōwa periods, these valleys are filled with the density of workers' lives: houses pressed deep into the hillside, neighbourhoods that faced inward by necessity. Yato are frequently cited as a symptomatic landscape of Japan's depopulation — places where decline has gone furthest and become most visible at once. In some areas, nearly 20% of houses stand empty: doors sealed, gardens returned to brush, houses stranded at the end of paths that no longer lead anywhere.</p>
         <p style="margin-bottom: 1.6em;">But this framing misses something structurally significant. The terrain of yato was already part of the trade and political routes connecting the coast to Edo, and the yato communities that took shape later grew alongside the Naval Arsenal that drew workers, soldiers, and merchants from across the country. These histories did not arrive continuously. But they do not disappear either — they are inscribed into the soil, the topography, the materials of the landscape itself.</p>
@@ -14,8 +14,8 @@ var config = {
             id: 'intro',
             alignment: 'left',
             hidden: false,
-            title: 'Landscapes in Tension, Stories in Transition',
-            description: 'The locations marked here do not tell a single story. They are places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes simultaneously — leaving a terrain that cannot be read from one vantage point alone. The tension is not incidental. It is structural: what a place meant to one era does not disappear when the next era decides to change the environment entirely. These stories are offered in that spirit — not as conclusions, but as first approaches. They are here to make the tension visible, in the hope that something more fully formed will grow from the attempt to bring them into view.',
+            title: 'Yato, Caught in Bamen',
+            description: 'The locations marked here do not tell a single story. They are places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes after a long hiatus, and sometimes simultaneously — leaving a terrain that cannot be read from one vantage point alone. The tension is not incidental. It is structural: what a place meant to one era does not disappear when the next era decides to change it completely. These stories are offered in that spirit — not as conclusions, but as first approaches. They are here to make the tension visible, in the hope that something more fully formed will grow from the attempt to bring them into view.',
             location: {
                 center: [139.650, 35.285],
                 zoom: 13,
