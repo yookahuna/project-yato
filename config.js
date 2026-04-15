@@ -15,8 +15,8 @@ var config = {
             id: 'intro',
             alignment: 'left',
             hidden: false,
-            title: 'Layers of Tension',
-            description: '1) The Terrain: ',
+            title: 'Landscapes in Tension, Stories in Transition',
+            description: 'The locations marked here do not tell a single story. They are places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes simultaneously — leaving a terrain that cannot be read from one vantage point alone. The tension is not incidental. It is structural: what a place meant to one era does not disappear when the next era arrives to mean something else entirely. These stories are offered in that spirit — not as conclusions, but as first approaches. They are here to make the tension visible, in the hope that something more fully formed will grow from the attempt to bring these tensions into view.',
             location: {
                 center: [139.650, 35.285],
                 zoom: 13,
