@@ -1,5 +1,5 @@
 var config = {
-    accessToken: 'pk.eyJ1IjoieW9va2FoIiwiYSI6ImNtbnk3azFrbjBhZnkyd3B6bGgzcW9pcngifQ.OYf6UH1LvD0IGM5uIgD-iA',
+    accessToken: 'pk.eyJ1IjoieW9va2FoIiwiYSI6ImNtbnpqdG1ueTBhdHoycXNjMjlnYW1mOWgifQ.gOxYtAroy2-o9HApkcxuxg',
     style: 'mapbox://styles/mapbox/light-v11',
     theme: 'light',
     use3dTerrain: false,
