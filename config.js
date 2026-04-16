@@ -14,7 +14,7 @@ var config = {
             id: 'intro',
             alignment: 'left',
             hidden: false,
-            title: 'Yato and its Vicinity: a View through Bamen',
+            title: 'Yato and its Vicinity: a view through bamen',
             description: 'The locations marked here do not tell a single story. They are places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes after a long hiatus, and sometimes simultaneously — leaving a terrain that cannot be read from one vantage point alone. The tension is not incidental. It is structural: what a place meant to one era does not disappear when the next era decides to change it completely. These stories are offered in that spirit — not as conclusions, but as first approaches. They are here to make the tension visible, in the hope that something more fully formed will grow from the attempt to bring them into view.',
             location: {
                 center: [139.650, 35.285],
