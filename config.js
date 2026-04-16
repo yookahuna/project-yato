@@ -50,8 +50,8 @@ var config = {
             id: 'name-without-bridge',
             alignment: 'right',
             hidden: false,
-            title: 'A Name Without a Bridge, a River Without Fish',
-            description: `A record from 1875 describes a bridge here, spanning the Hemi Yato River at the point where it opened into the sea. A resident born in 1892 remembered the river as abundant: loach, eel, crucian carp, freshwater crab (City of Yokosuka 1981, 8). Today, the Migiwa bridge is gone, and its name lives on only as a bus stop. Down the road toward JR Taura Station, the Yoshikura Tunnel — bored through the bluff in 1891 — spared travelers the punishing climb over the headland and gave them faster access to Yoshikura, where boats ran to and from Enokido. That connection mattered: Enokido, now Uragō-chō, had been a key node in the fresh fish trade since the mid-1700s, channeling catch from the Miura Peninsula up to the tables of Edo (Asaka 1955).`,
+            title: 'A Name Without a Bridge',
+            description: `A record from 1875 describes a bridge here, spanning the Hemi Yato River at the point where it opened into the sea. A resident born in 1892 remembered the river as abundant with loach, eel, crucian carp, and freshwater crab (City of Yokosuka 1981, 8). Today, the Migiwa bridge (now called Nagisa bridge) is gone, and its name lives on only as a bus stop. Down the road toward JR Taura Station, the Yoshikura Tunnel — bored through the bluff in 1891 — spared travelers the punishing climb over the headland and gave them faster access to Yoshikura, where boats ran to and from Enokido. That connection mattered: Enokido, now Uragō-chō, had been a key node in the fresh fish trade since the mid-1700s, channeling catch from the Miura Peninsula up to the tables of Edo (Asaka 1955).`,
             location: {
                 center: [139.65199, 35.28358],
                 zoom: 16,
