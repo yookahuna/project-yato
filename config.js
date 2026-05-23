@@ -38,7 +38,7 @@ var config = {
                           <p style="margin-bottom: 1.5em;">These bamen introduce places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes after a long hiatus, and sometimes simultaneously — that require multiple perspectives from which to be read.</p>
                           <p style="margin-bottom: 1.5em;">This tension creates the conditions under which history is lost: it resists the kind of narrative that moves in a single, linear direction.</p>
                           <p style="margin-bottom: 1.5em;">Bamen, by showing tensions from the sedimented layers of history that a single location holds, offers an alternative model that can generate new ways to perceive and relate to the place in question.</p>
-                          <p style="margin-bottom: 1.5em;">The collection of bamen here is offered in that spirit, as an opportunity for you - the users of this map - to find new ways of seeing and relating to Yokosuka.</p>`,
+                          <p style="margin-bottom: 1.5em;">The bamen collected here are offered in that spirit — an invitation to discover what lies folded inside the yato valleys of Yokosuka.</p>`,
             location: {
                 center: [139.650, 35.285],
                 zoom: 13,
