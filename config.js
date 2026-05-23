@@ -18,18 +18,18 @@ var config = {
             markerColor: '#C05A40', 
             description: `<p style="margin-bottom: 1.5em;">Augustine Berque, a geographer and philosopher of Eastern thought, describes the valley as a woman's womb where life emerges through her labor by citing a poem from the Confucian scholar Laozi (2013, 19).</p> 
                           <blockquote>
-                          <p style="margin-bottom: 0.5em;">谷神不死 <em>Gu shen bu shi</em></p>
-                          <p style="margin-bottom: 0.5em;">(The genie of the valley does not die)</p>
-                          <p style="margin-bottom: 0.5em;">是謂玄牝 <em>Shi wei Xuanpin</em></p> 
-                          <p style="margin-bottom: 0.5em;">(It is called the obscure female)</p>
-                          <p style="margin-bottom: 0.5em;">玄牝之門 <em>Xuanpin zhi men</em></p>
-                          <p style="margin-bottom: 0.5em;">(The door of the obscure female)</p>
-                          <p style="margin-bottom: 0.5em;">是謂天地根 <em>Shi wei tian di gen</em></p>
-                          <p style="margin-bottom: 0.5em;">(Is called the root of heaven and earth)</p>
-                          <p style="margin-bottom: 0.5em;">綿綿若存 <em>Mianmian ruo cun</em></p>
-                          <p style="margin-bottom: 0.5em;">(She lasts like an unfolding thread)</p>
-                          <p style="margin-bottom: 0.5em;">用之不勤 <em>Yong zhi bu qin</em></p>
-                          <p style="margin-bottom: 0.5em;">(Which does not run out when it is used)</p>
+                          谷神不死 <em>Gu shen bu shi</em><br>
+                          (The genie of the valley does not die)<br>
+                          是謂玄牝 <em>Shi wei Xuanpin</em><br>
+                          (It is called the obscure female)<br>
+                          玄牝之門 <em>Xuanpin zhi men</em><br>
+                          (The door of the obscure female)<br>
+                          是謂天地根 <em>Shi wei tian di gen</em><br>
+                          (Is called the root of heaven and earth)<br>
+                          綿綿若存 <em>Mianmian ruo cun</em><br>
+                          (She lasts like an unfolding thread)<br>
+                          用之不勤 <em>Yong zhi bu qin</em><br>
+                          (Which does not run out when it is used)<br>
                           </blockquote>
                           <p style="margin-bottom: 1.5em;">Like the poem, my project is to weave an unfolding thread of bamen onto the yato topography to reveal its rich history and landscape obscured by the hills that surround it.</p>
                           <p style="margin-bottom: 1.5em;">These bamen introduce places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes after a long hiatus, and sometimes simultaneously — that require multiple perspectives from which to be read.</p>
