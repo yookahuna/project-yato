@@ -3,7 +3,7 @@ var config = {
     style: 'mapbox://styles/mapbox/light-v11',
     theme: 'light',
     use3dTerrain: false,
-    title: 'Planting Bamen into the Folds of Yato',
+    title: 'Weaving Bamen onto the Folds of Yato',
     subtitle: 'a guide for walking Yokosuka across history',
     byline: `<p style="margin-bottom: 1.6em;">Tucked between the hills of Yokosuka are the yato — residential alcoves that were, until recently, only reachable through a single entrance, their interiors hidden from the street. Built as the Naval Arsenal expanded through the Taishō and early Shōwa periods, these valleys are filled with the density of workers' lives: houses pressed deep into the hillside, neighbourhoods that faced inward by necessity. Yato are frequently cited as a symptomatic landscape of Japan's depopulation — places where decline has gone furthest and become most visible at once. In some areas, nearly 20% of houses stand empty: doors sealed, gardens returned to bush, houses stranded at the end of paths that no longer lead anywhere.</p>
         <p style="margin-bottom: 1.6em;">But this framing misses something structurally significant. The terrain of yato has a longer history, belonging to the trade and political routes connecting the coast to Edo. The yato communities took shape later, alongside the Naval Arsenal that drew workers, soldiers, and merchants from across the country. These histories did not arrive continuously, but they do not disappear either — their traces are inscribed onto the soil, the topography, and the landscape itself. Nor does the framing do justice to the parts of yato's neighborhoods and streets that are carefully tended and maintained. What makes yato so irresistibly enchanting is the sedimented overlay of history, memory, and ongoing change that intertwine with its topography.</p>
@@ -14,9 +14,22 @@ var config = {
             id: 'intro',
             alignment: 'left',
             hidden: false,
-            title: 'Yato and its Vicinity: a view through bamen',
+            title: 'Yato (谷戸): the door to enter a valley',
             markerColor: '#C05A40', 
-            description: 'The locations marked here do not tell a single story. They are places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes after a long hiatus, and sometimes simultaneously — leaving a terrain that cannot be read from one vantage point alone. The tension is not incidental. It is structural: what a place meant to one era does not disappear when the next era decides to change it completely. These stories are offered in that spirit — not as conclusions, but as first approaches. They are here to make the tension visible, in the hope that something more fully formed will grow from the attempt to bring them into view.',
+            description: `<p style="margin-bottom: 1.5em;">Augustine Berque, a geographer and philosopher of Eastern thought, describes the valley as a woman's womb where life emerges through her labor by citing a poem from the Confucian scholar Laozi (2013, 19).</p> 
+                          <blockquote>
+                          <p style="margin-bottom: 1em;">谷神不死 <em>Gu shen bu shi</em> (The genie of the valley does not die)</p>
+                          <p style="margin-bottom: 1em;">是謂玄牝 <em>Shi wei Xuanpin</em> (It is called the obscure female)</p>
+                          <p style="margin-bottom: 1em;">玄牝之門 <em>Xuanpin zhi men</em> (The door of the obscure female)</p>
+                          <p style="margin-bottom: 1em;">是謂天地根 <em>Shi wei tian di gen</em> (Is called the root of heaven and earth)</p>
+                          <p style="margin-bottom: 1em;">綿綿若存 <em>Mianmian ruo cun</em> (She lasts like an unfolding thread)</p>
+                          <p style="margin-bottom: 1em;">用之不勤 <Yong zhi bu jin</em> (Which does not run out when it is used)</p>
+                          </blockquote>
+                          <p style="margin-bottom: 1.5em;">Like the poem, my project is to weave an unfolding thread of bamen onto the yato topography to reveal its rich history and beautiful landscape obscured by the hills that surround it.</p>
+                          <p style="margin-bottom: 1.5em;">These bamen introduce places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes after a long hiatus, and sometimes simultaneously — that require multiple perspectives from which to be read.</p>
+                          <p style="margin-bottom: 1.5em;">This tension carries the risk of history becoming lost and forgotten because it resists being told in a narrative structure based on a single and linear timeline.</p>
+                          <p style="margin-bottom: 1.5em;">Bamen, by showing tensions from the sedimented layers of history that a single location holds, offers an alternative model that can generate new ways to perceive and relate to the place in question.</p>
+                          <p style="margin-bottom: 1.5em;">The collection of bamen here is offered in that spirit, as a catalyst for you - the users of this map - to find new ways to see and relate to Yokosuka.'
             location: {
                 center: [139.650, 35.285],
                 zoom: 13,
