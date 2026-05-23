@@ -14,7 +14,7 @@ var config = {
             id: 'intro',
             alignment: 'left',
             hidden: false,
-            title: 'Yato (谷戸): the door to enter a valley',
+            title: 'Yato (谷戸): an entrance into a valley',
             markerColor: '#C05A40', 
             description: `<p style="margin-bottom: 1.5em;">Augustine Berque, a geographer and philosopher of Eastern thought, describes the valley as a woman's womb where life emerges through her labor by citing a poem from the Confucian scholar Laozi (2013, 19).</p> 
                           <blockquote>
