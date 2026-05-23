@@ -23,13 +23,13 @@ var config = {
                           <p style="margin-bottom: 1em;">玄牝之門 <em>Xuanpin zhi men</em> (The door of the obscure female)</p>
                           <p style="margin-bottom: 1em;">是謂天地根 <em>Shi wei tian di gen</em> (Is called the root of heaven and earth)</p>
                           <p style="margin-bottom: 1em;">綿綿若存 <em>Mianmian ruo cun</em> (She lasts like an unfolding thread)</p>
-                          <p style="margin-bottom: 1em;">用之不勤 <Yong zhi bu jin</em> (Which does not run out when it is used)</p>
+                          <p style="margin-bottom: 1em;">用之不勤 <em>Yong zhi bu jin</em> (Which does not run out when it is used)</p>
                           </blockquote>
                           <p style="margin-bottom: 1.5em;">Like the poem, my project is to weave an unfolding thread of bamen onto the yato topography to reveal its rich history and beautiful landscape obscured by the hills that surround it.</p>
                           <p style="margin-bottom: 1.5em;">These bamen introduce places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes after a long hiatus, and sometimes simultaneously — that require multiple perspectives from which to be read.</p>
                           <p style="margin-bottom: 1.5em;">This tension carries the risk of history becoming lost and forgotten because it resists being told in a narrative structure based on a single and linear timeline.</p>
                           <p style="margin-bottom: 1.5em;">Bamen, by showing tensions from the sedimented layers of history that a single location holds, offers an alternative model that can generate new ways to perceive and relate to the place in question.</p>
-                          <p style="margin-bottom: 1.5em;">The collection of bamen here is offered in that spirit, as a catalyst for you - the users of this map - to find new ways of seeing and relating to Yokosuka.</p>`
+                          <p style="margin-bottom: 1.5em;">The collection of bamen here is offered in that spirit, as a catalyst for you - the users of this map - to find new ways of seeing and relating to Yokosuka.</p>`,
             location: {
                 center: [139.650, 35.285],
                 zoom: 13,
