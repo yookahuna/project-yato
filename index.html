@@ -185,6 +185,58 @@
         .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan .mapboxgl-canvas {
             touch-action: unset;
         }
+
+/* ── Environmental Layer Toggle ───────────────────────── */
+        #env-toggle {
+          position: fixed;
+          top: 16px;
+          right: 16px;
+          z-index: 100;
+          background: rgba(255,255,255,0.95);
+          border-radius: 6px;
+          padding: 12px 14px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+          font-family: 'Karma', serif;
+          font-size: 12px;
+          color: #54595F;
+          min-width: 210px;
+          max-height: 90vh;
+          overflow-y: auto;
+        }
+        #env-toggle h4 {
+          margin: 0 0 8px 0;
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: #A0845C;
+          border-bottom: 1px solid #e0d9d0;
+          padding-bottom: 6px;
+        }
+        #env-toggle h5 {
+          margin: 10px 0 4px 0;
+          font-size: 9px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: #A0845C;
+          opacity: 0.7;
+        }
+        .env-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 4px 0;
+          cursor: pointer;
+          line-height: 1.3;
+        }
+        .env-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 2px;
+          flex-shrink: 0;
+        }
+        .env-dot.circle {
+          border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -380,8 +432,211 @@
                         'sky-atmosphere-sun-intensity': 15
                     }
                 });
+                // ── Environmental Layers ─────────────────────────────────────────────
+                // Note: layer IDs (e.g. 2990100) follow the naming pattern and are
+                // best guesses — adjust if a layer returns empty on first test.
+                
+                var BBOX = '139.55,35.20,139.78,35.40'; // Yokosuka/Miura area
+                var BASE = 'https://biodiversitymap.env.go.jp/server/rest/services/Hosted/';
+                var Q    = '/query?f=geojson&where=1%3D1&outFields=*&returnGeometry=true' +
+                           '&geometry=' + BBOX +
+                           '&geometryType=esriGeometryEnvelope&inSR=4326&outSR=4326';
+                
+                // ── 保護地域（全域）F_02_99_01 ────────────────────────────────────
+                map.addSource('protected-all', {
+                  type: 'geojson',
+                  data: BASE + 'F_02_99_01/FeatureServer/2990100' + Q
+                });
+                map.addLayer({
+                  id: 'protected-all-fill', type: 'fill', source: 'protected-all',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#7DB87A', 'fill-opacity': 0.30 }
+                });
+                map.addLayer({
+                  id: 'protected-all-line', type: 'line', source: 'protected-all',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#4a8f5a', 'line-width': 1.5 }
+                });
+                
+                // ── 保護地域（内訳）F_02_01_05 ────────────────────────────────────
+                map.addSource('protected-sub', {
+                  type: 'geojson',
+                  data: BASE + 'F_02_01_05/FeatureServer/2010500' + Q
+                });
+                map.addLayer({
+                  id: 'protected-sub-fill', type: 'fill', source: 'protected-sub',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#7DB87A', 'fill-opacity': 0.20 }
+                });
+                map.addLayer({
+                  id: 'protected-sub-line', type: 'line', source: 'protected-sub',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#4a8f5a', 'line-width': 1 }
+                });
+                
+                // ── 自然公園：国立公園 F_02_02_02 ────────────────────────────────
+                map.addSource('shizen-02', {
+                  type: 'geojson',
+                  data: BASE + 'F_02_02_02/FeatureServer/2020200' + Q
+                });
+                map.addLayer({
+                  id: 'shizen-02-fill', type: 'fill', source: 'shizen-02',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#7DB87A', 'fill-opacity': 0.40 }
+                });
+                map.addLayer({
+                  id: 'shizen-02-line', type: 'line', source: 'shizen-02',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#3a6e42', 'line-width': 2 }
+                });
+                
+                // ── 自然公園：国定公園 F_02_02_04 ────────────────────────────────
+                map.addSource('shizen-04', {
+                  type: 'geojson',
+                  data: BASE + 'F_02_02_04/FeatureServer/2020400' + Q
+                });
+                map.addLayer({
+                  id: 'shizen-04-fill', type: 'fill', source: 'shizen-04',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#7DB87A', 'fill-opacity': 0.30 }
+                });
+                map.addLayer({
+                  id: 'shizen-04-line', type: 'line', source: 'shizen-04',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#3a6e42', 'line-width': 1.5 }
+                });
+                // ── 自然公園：都道府県立自然公園 F_02_02_05 ──────────────────────
+                map.addSource('shizen-05', {
+                  type: 'geojson',
+                  data: BASE + 'F_02_02_05/FeatureServer/2020500' + Q
+                });
+                map.addLayer({
+                  id: 'shizen-05-fill', type: 'fill', source: 'shizen-05',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#7DB87A', 'fill-opacity': 0.20 }
+                });
+                map.addLayer({
+                  id: 'shizen-05-line', type: 'line', source: 'shizen-05',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#3a6e42', 'line-width': 1 }
+                });
+                // ── 生物多様性保全上重要な場 F_02_03_03 ──────────────────────────
+                map.addSource('biodiversity', {
+                  type: 'geojson',
+                  data: BASE + 'F_02_03_03/FeatureServer/2030300' + Q
+                });
+                map.addLayer({
+                  id: 'biodiversity-fill', type: 'fill', source: 'biodiversity',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#C05A40', 'fill-opacity': 0.30 }
+                });
+                map.addLayer({
+                  id: 'biodiversity-line', type: 'line', source: 'biodiversity',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#8B3A26', 'line-width': 1.5 }
+                });
+                
+                // ── 生物多様性保全上重要な里地里山 F_04_04_01 ────────────────────
+                map.addSource('satoyama', {
+                  type: 'geojson',
+                  data: BASE + 'F_04_04_01/FeatureServer/4040100' + Q
+                });
+                map.addLayer({
+                  id: 'satoyama-fill', type: 'fill', source: 'satoyama',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#A0845C', 'fill-opacity': 0.35 }
+                });
+                map.addLayer({
+                  id: 'satoyama-line', type: 'line', source: 'satoyama',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#6b5530', 'line-width': 1.5 }
+                });
+                // ── 重要海域：沿岸域 F_04_06_01 ──────────────────────────────────
+                map.addSource('kaiki-01', {
+                  type: 'geojson',
+                  data: BASE + 'F_04_06_01/FeatureServer/4060100' + Q
+                });
+                map.addLayer({
+                  id: 'kaiki-01-fill', type: 'fill', source: 'kaiki-01',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#6EC1E4', 'fill-opacity': 0.35 }
+                });
+                map.addLayer({
+                  id: 'kaiki-01-line', type: 'line', source: 'kaiki-01',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#3a8faa', 'line-width': 1.5 }
+                });
+                // ── 重要海域：沖合表層域 F_04_06_02 ──────────────────────────────
+                map.addSource('kaiki-02', {
+                  type: 'geojson',
+                  data: BASE + 'F_04_06_02/FeatureServer/4060200' + Q
+                });
+                map.addLayer({
+                  id: 'kaiki-02-fill', type: 'fill', source: 'kaiki-02',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#6EC1E4', 'fill-opacity': 0.25 }
+                });
+                map.addLayer({
+                  id: 'kaiki-02-line', type: 'line', source: 'kaiki-02',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#3a8faa', 'line-width': 1 }
+                });
+                // ── 重要海域：沖合海底域 F_04_06_03 ──────────────────────────────
+                map.addSource('kaiki-03', {
+                  type: 'geojson',
+                  data: BASE + 'F_04_06_03/FeatureServer/4060300' + Q
+                });
+                map.addLayer({
+                  id: 'kaiki-03-fill', type: 'fill', source: 'kaiki-03',
+                  layout: { visibility: 'none' },
+                  paint: { 'fill-color': '#6EC1E4', 'fill-opacity': 0.15 }
+                });
+                map.addLayer({
+                  id: 'kaiki-03-line', type: 'line', source: 'kaiki-03',
+                  layout: { visibility: 'none' },
+                  paint: { 'line-color': '#3a8faa', 'line-width': 1 }
+                });
+                
+                // ── 巨樹・巨木林 F_04_08_02_01 ───────────────────────────────────
+                map.addSource('kjurin-01', {
+                  type: 'geojson',
+                  data: BASE + 'F_04_08_02_01/FeatureServer/4080201' + Q
+                });
+                map.addLayer({
+                  id: 'kjurin-01-layer', type: 'circle', source: 'kjurin-01',
+                  layout: { visibility: 'none' },
+                  paint: {
+                    'circle-radius': 5,
+                    'circle-color': '#7DB87A',
+                    'circle-opacity': 0.9,
+                    'circle-stroke-width': 1.5,
+                    'circle-stroke-color': '#3a6e42'
+                  }
+                });
+                // ── 巨樹・巨木林 F_04_08_02_02 ───────────────────────────────────
+                map.addSource('kjurin-02', {
+                  type: 'geojson',
+                  data: BASE + 'F_04_08_02_02/FeatureServer/4080202' + Q
+                });
+                map.addLayer({
+                  id: 'kjurin-02-layer', type: 'circle', source: 'kjurin-02',
+                  layout: { visibility: 'none' },
+                  paint: {
+                    'circle-radius': 7,
+                    'circle-color': '#7DB87A',
+                    'circle-opacity': 0.9,
+                    'circle-stroke-width': 1.5,
+                    'circle-stroke-color': '#3a6e42'
+                  }
+                });
             };
 
+            function envToggle(ids, on) {
+              ids.forEach(function(id) {
+                map.setLayoutProperty(id, 'visibility', on ? 'visible' : 'none');
+              });
+            }
+            
             // setup the instance, pass callback functions
             scroller
                 .setup({
@@ -438,6 +693,92 @@
 
     </script>
 
+<div id="env-toggle">
+  <h4>環境レイヤー</h4>
+
+  <h5>保護地域</h5>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['protected-all-fill','protected-all-line'], this.checked)">
+    <span class="env-dot" style="background:#7DB87A"></span>
+    保護地域（全域）
+  </label>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['protected-sub-fill','protected-sub-line'], this.checked)">
+    <span class="env-dot" style="background:#7DB87A;opacity:0.6"></span>
+    保護地域（内訳）
+  </label>
+
+  <h5>自然公園</h5>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['shizen-02-fill','shizen-02-line'], this.checked)">
+    <span class="env-dot" style="background:#7DB87A"></span>
+    国立公園
+  </label>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['shizen-04-fill','shizen-04-line'], this.checked)">
+    <span class="env-dot" style="background:#7DB87A;opacity:0.75"></span>
+    国定公園
+  </label>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['shizen-05-fill','shizen-05-line'], this.checked)">
+    <span class="env-dot" style="background:#7DB87A;opacity:0.5"></span>
+    都道府県立自然公園
+  </label>
+
+  <h5>生物多様性</h5>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['biodiversity-fill','biodiversity-line'], this.checked)">
+    <span class="env-dot" style="background:#C05A40"></span>
+    生物多様性保全上重要な場
+  </label>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['satoyama-fill','satoyama-line'], this.checked)">
+    <span class="env-dot" style="background:#A0845C"></span>
+    重要里地里山
+  </label>
+
+  <h5>重要海域</h5>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['kaiki-01-fill','kaiki-01-line'], this.checked)">
+    <span class="env-dot" style="background:#6EC1E4"></span>
+    沿岸域
+  </label>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['kaiki-02-fill','kaiki-02-line'], this.checked)">
+    <span class="env-dot" style="background:#6EC1E4;opacity:0.7"></span>
+    沖合表層域
+  </label>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['kaiki-03-fill','kaiki-03-line'], this.checked)">
+    <span class="env-dot" style="background:#6EC1E4;opacity:0.4"></span>
+    沖合海底域
+  </label>
+
+  <h5>巨樹・巨木林</h5>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['kjurin-01-layer'], this.checked)">
+    <span class="env-dot circle" style="background:#7DB87A"></span>
+    巨樹・巨木林 ①
+  </label>
+  <label class="env-row">
+    <input type="checkbox"
+      onchange="envToggle(['kjurin-02-layer'], this.checked)">
+    <span class="env-dot circle" style="background:#7DB87A;opacity:0.7"></span>
+    巨樹・巨木林 ②
+  </label>
+</div>
+    
 </body>
 
 </html>
