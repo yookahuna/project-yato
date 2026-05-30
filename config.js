@@ -107,6 +107,44 @@ var config = {
             callback: '',
             onChapterEnter: [],
             onChapterExit: []
+        },
+        {
+            id: 'bricks-blossoms',
+            alignment: 'left',
+            hidden: false,
+            title: 'Bricks and Blossoms',
+            markerColor: '#C05A40', 
+            description: `The name Yasaka is written with the kanji for eight — a figure for the twin hills that climb from Shioiri toward the ridge. At the junction where the two paths converge stood a place known as Kappa Mountain: not for the water spirit of Japanese legend, but for the kappa, the raincoat, and the military facility here that serviced the heavy-duty gear of the regiment stationed on these slopes. The Heavy Artillery Regiment planted cherry trees on the grounds. The red brick gate at the regimental entrance still stands as the entrance to Sakura Elementary School, which takes its name from the blossoms that the regiment planted (City of Yokosuka, 1981, 34-7).`,
+            location: {
+                center: [35.27337, 139.65711],
+                zoom: 16,
+                pitch: 50,
+                bearing: 10
+            },
+            mapAnimation: 'flyTo',
+            rotateAnimation: false,
+            callback: '',
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'cannons-calvary-children',
+            alignment: 'left',
+            hidden: false,
+            title: 'Cannons, Cavalry, and Children',
+            markerColor: '#C05A40', 
+            description: `Around 1880, the Imperial Army requisitioned farmland and flattened the surrounding slopes to clear a drill ground for the Heavy Artillery Regiment. Cannons were installed; cavalry stables followed. Children caught tadpoles, crabs, and shrimps in the small river that ran through the grounds. By the 1910s, weekends had been quietly reclaimed — the drill ground became a baseball field, eventually formalized where Tsurukubo Elementary School now stands (Ishii 1987b, 84). The sport arrived with its English terminology intact: strike, safe, out. The children had less than a decade with those words. When wartime language policy reached the baseball diamond, the terms were reversed into Japanese — seikyū, anzen, hike — and the foreign syllables disappeared from the field along with everything else that had briefly seemed ordinary.`,
+            location: {
+                center: [35.26835, 139.66571],
+                zoom: 16,
+                pitch: 50,
+                bearing: 10
+            },
+            mapAnimation: 'flyTo',
+            rotateAnimation: false,
+            callback: '',
+            onChapterEnter: [],
+            onChapterExit: []
         }
     ]
 };
