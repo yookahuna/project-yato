@@ -16,29 +16,23 @@ var config = {
             hidden: false,
             title: 'Yato (谷戸): an entrance into a valley',
             markerColor: '#C05A40', 
-            description: `<p style="margin-bottom: 1.5em;">Augustine Berque, a geographer and philosopher of Eastern thought, describes the valley as a woman's womb where life emerges through her labor by citing a poem from the Confucian scholar Laozi (2013, 19).</p> 
-                          <blockquote p {
-                          margin-top: 4px;
-                          margin-bottom: 4px;
-                          }>
-                          谷神不死 <em>Gu shen bu shi</em><br>
-                          (The genie of the valley does not die)<br>
-                          是謂玄牝 <em>Shi wei Xuanpin</em><br>
-                          (It is called the obscure female)<br>
-                          玄牝之門 <em>Xuanpin zhi men</em><br>
-                          (The door of the obscure female)<br>
-                          是謂天地根 <em>Shi wei tian di gen</em><br>
-                          (Is called the root of heaven and earth)<br>
-                          綿綿若存 <em>Mianmian ruo cun</em><br>
-                          (She lasts like an unfolding thread)<br>
-                          用之不勤 <em>Yong zhi bu qin</em><br>
-                          (Which does not run out when it is used)<br>
-                          </blockquote>
-                          <p style="margin-bottom: 1.5em;">Like the poem, my project is to weave an unfolding thread of bamen onto the yato topography to reveal its rich history and landscape obscured by the hills that surround it.</p>
-                          <p style="margin-bottom: 1.5em;">These bamen introduce places where different epochs have inscribed themselves onto the same land — sometimes in sequence, sometimes after a long hiatus, and sometimes simultaneously — that require multiple perspectives from which to be read.</p>
-                          <p style="margin-bottom: 1.5em;">This tension creates the conditions under which history is lost: it resists the kind of narrative that moves in a single, linear direction.</p>
-                          <p style="margin-bottom: 1.5em;">Bamen, by showing tensions from the sedimented layers of history that a single location holds, offers an alternative model that can generate new ways to perceive and relate to the place in question.</p>
-                          <p style="margin-bottom: 1.5em;">The bamen collected here are offered in that spirit — an invitation to discover what lies folded inside the yato valleys of Yokosuka.</p>`,
+description: `<p style="margin-bottom: 1.5em;">The yato valleys of Yokosuka hold more than their terrain suggests. Tucked between hills, these residential alcoves have accumulated layers of history — sometimes in sequence, sometimes after long interruption, sometimes simultaneously — that resist any single, linear telling. The bamen collected here work against that resistance. Each one marks a site where different epochs have inscribed themselves onto the same land, and where those inscriptions remain mutually load-bearing rather than simply stacked. To read a bamen is to hold multiple temporal registers at once.</p>
+              <p style="margin-bottom: 1.5em;">Augustine Berque, writing on the valley as a form, finds in a verse from Laozi an image that speaks to this condition:</p>
+              <blockquote style="margin-top: 4px; margin-bottom: 4px; padding-left: 1.2em; border-left: 3px solid #C05A40; font-style: italic;">
+              谷神不死 <em>Gu shen bu shi</em><br>
+              (The genie of the valley does not die)<br>
+              是謂玄牝 <em>Shi wei Xuanpin</em><br>
+              (It is called the obscure female)<br>
+              玄牝之門 <em>Xuanpin zhi men</em><br>
+              (The door of the obscure female)<br>
+              是謂天地根 <em>Shi wei tian di gen</em><br>
+              (Is called the root of heaven and earth)<br>
+              綿綿若存 <em>Mianmian ruo cun</em><br>
+              (She lasts like an unfolding thread)<br>
+              用之不勤 <em>Yong zhi bu qin</em><br>
+              (Which does not run out when it is used)<br>
+              </blockquote>
+              <p style="margin-bottom: 1.5em;">The valley does not exhaust itself. What is folded inside it continues to generate. The bamen offered here are an invitation to discover what that means, on the ground, in Yokosuka's yato.</p>`,
             location: {
                 center: [139.650, 35.285],
                 zoom: 13,
