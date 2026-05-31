@@ -713,6 +713,7 @@
                 map.addSource('nature-conservation', {
                   type: 'geojson',
                   data: BASE + 'F_02_01_05/FeatureServer/2010500' + Q
+                });    
                 map.addLayer({ id: 'nature-conservation-fill', type: 'fill', source: 'nature-conservation',
                   layout: { visibility: 'none' },
                   paint: { 'fill-color': '#7DB87A', 'fill-opacity': 0.25 }
@@ -726,6 +727,7 @@
                 map.addSource('wildlife-protection', {
                   type: 'geojson',
                   data: BASE + 'F_02_03_04/FeatureServer/2030400' + Q
+                });
                 map.addLayer({ id: 'wildlife-protection-fill', type: 'fill', source: 'wildlife-protection',
                   layout: { visibility: 'none' },
                   paint: { 'fill-color': '#4A8C6F', 'fill-opacity': 0.25 }
@@ -739,6 +741,7 @@
                 map.addSource('suburban-greenspace', {
                   type: 'geojson',
                   data: BASE + 'F_02_06_01/FeatureServer/2060100' + Q
+                });
                 map.addLayer({ id: 'suburban-greenspace-fill', type: 'fill', source: 'suburban-greenspace',
                   layout: { visibility: 'none' },
                   paint: { 'fill-color': '#D4E8A0', 'fill-opacity': 0.35 }
