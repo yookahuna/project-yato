@@ -237,71 +237,68 @@
           height: 12px;
           flex-shrink: 0;
         }
-            /* ── Environmental Location Popup Boxes ─────────────────────────── */
-                #env-location-overlay {
-                                position: fixed;
-                                top: 0; left: 0;
-                                width: 100%; height: 100%;
-                                pointer-events: none;
-                                z-index: 20;
-                }
-                .env-loc-box {
-                                position: absolute;
-                                background: rgba(255,255,255,0.82);
-                                border-radius: 6px;
-                                padding: 10px 13px;
-                                max-width: 210px; min-width: 140px;
-                                box-shadow: 0 2px 10px rgba(0,0,0,0.18);
-                                border-left: 4px solid #6EC1E4;
-                                pointer-events: auto;
-                                cursor: default;
-                                transition: opacity 0.4s ease, transform 0.4s ease;
-                                opacity: 0;
-                                transform: translateY(6px) scale(0.97);
-                                font-size: 0.78rem;
-                                line-height: 1.4;
-                                color: #444444;
-                }
-                .env-loc-box.visible {
-                                opacity: 1;
-                                transform: translateY(0) scale(1);
-                }
-                .env-loc-box .env-loc-header {
-                                display: flex; align-items: center;
-                                gap: 6px; margin-bottom: 5px;
-                }
-                .env-loc-box .env-loc-icon {
-                                width: 10px; height: 10px;
-                                border-radius: 50%; flex-shrink: 0;
-                }
-                .env-loc-box .env-loc-title {
-                                font-weight: 600; font-size: 0.80rem;
-                                color: #54595F; margin: 0; line-height: 1.25;
-                }
-                .env-loc-box .env-loc-type {
-                                font-size: 0.68rem;
-                                text-transform: uppercase;
-                                letter-spacing: 0.06em;
-                                color: #888; margin-bottom: 4px;
-                }
-                .env-loc-box .env-loc-desc {
-                                font-size: 0.74rem; color: #555;
-                                margin: 0; max-height: 72px; overflow: hidden;
-                                display: -webkit-box;
-                                -webkit-line-clamp: 4;
-                                -webkit-box-orient: vertical;
-                }
-                .env-loc-box[data-type="spring"]         { border-left-color: #4A90D9; }
-                .env-loc-box[data-type="wetland"]        { border-left-color: #2E7D9F; }
-                .env-loc-box[data-type="satoyama"]       { border-left-color: #4A7C59; }
-                .env-loc-box[data-type="heritage-water"] { border-left-color: #8B6914; }
-            
+        /* -- Environmental Location Map Pins -------------------------------- */
+            .env-pin-marker {
+                            width: 14px;
+                            height: 14px;
+                            border-radius: 50%;
+                            border: 2.5px solid rgba(255,255,255,0.9);
+                            box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+                            cursor: pointer;
+                            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            }
+            .env-pin-marker:hover {
+                            transform: scale(1.35);
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+            }
+            .env-pin-marker.water  { background: #4A90D9; }
+            .env-pin-marker.woodland { background: #4A7C59; }
+    
+            /* Mapbox GL popup overrides for env-location popups */
+            .mapboxgl-popup.env-popup .mapboxgl-popup-content {
+                            background: rgba(255,255,255,0.93);
+                            border-radius: 7px;
+                            padding: 12px 14px 10px;
+                            max-width: 230px;
+                            box-shadow: 0 3px 14px rgba(0,0,0,0.20);
+                            font-family: 'Karma', serif;
+                            font-size: 0.82rem;
+                            line-height: 1.45;
+                            color: #444;
+            }
+            .mapboxgl-popup.env-popup .mapboxgl-popup-tip {
+                            border-top-color: rgba(255,255,255,0.93);
+            }
+            .mapboxgl-popup.env-popup .env-popup-type {
+                            font-size: 0.66rem;
+                            text-transform: uppercase;
+                            letter-spacing: 0.08em;
+                            margin-bottom: 4px;
+                            font-weight: 600;
+            }
+            .mapboxgl-popup.env-popup .env-popup-title {
+                            font-weight: 700;
+                            font-size: 0.88rem;
+                            margin: 0 0 6px;
+                            color: #333;
+                            line-height: 1.25;
+            }
+            .mapboxgl-popup.env-popup .env-popup-desc {
+                            font-size: 0.78rem;
+                            color: #555;
+                            margin: 0;
+            }
+            .mapboxgl-popup-close-button {
+                            font-size: 16px;
+                            color: #888;
+                            padding: 2px 6px;
+            }
     </style>
 </head>
 
 <body>
 
-    <div id="map"></div>    <div id="env-location-overlay"></div>
+    <div id="map"></div>    
     <div id="story"></div>
 
     <script src="./config.js"></script>
@@ -955,184 +952,91 @@
   </label>
 </div>  <!-- closes env-toggle-body -->
 
-                    <script>
-                    // ── Environmental Location Overlay ─────────────────────────────────────
-                    // Displays semi-opaque popup boxes for spring water and ecological sites
-                    // when those locations fall within the visible map viewport.
-                    (function () {
-                                // Wait until map is ready before setting up the overlay
-                                function waitForMap(cb) {
-                                                if (typeof map !== 'undefined' && map.loaded && map.loaded()) {
-                                                                    cb();
-                                                } else if (typeof map !== 'undefined') {
-                                                                    map.once('load', cb);
-                                                } else {
-                                                                    setTimeout(function () { waitForMap(cb); }, 300);
-                                }
-                    }
+    <script>
+            // ── Environmental Location Map Pins ────────────────────────────────────
+            // Creates Mapbox GL JS markers for spring water and ecological locations.
+            // Clicking a marker opens a styled popup with the location name and description.
+            (function () {
 
-                        // Type labels for display
+                        // Water-type keys → blue; woodland/satoyama → green
+                        var WATER_TYPES = { spring: true, wetland: true, 'heritage-water': true };
+
                         var typeLabels = {
-                                        'spring': 'Spring Water',
-                                        'wetland': 'Wetland',
-                                        'satoyama': 'Satoyama Edge',
+                                        'spring':         'Spring Water',
+                                        'wetland':        'Wetland',
+                                        'satoyama':       'Satoyama Edge',
                                         'heritage-water': 'Heritage Water'
-                            };
+                        };
 
-                                    // Build the box elements once
-                                    var overlay = document.getElementById('env-location-overlay');
-                                    var boxEls = {}; // keyed by location id
+                        // Track the single open popup so we can close it on second click
+                        var activePopup = null;
 
-                                    function buildBoxes() {
-                                                    if (typeof envLocations === 'undefined' || !overlay) return;
-                                                    envLocations.forEach(function (loc) {
-                                                                        var box = document.createElement('div');
-                                                                        box.className = 'env-loc-box';
-                                                                        box.setAttribute('data-type', loc.type);
-                                                                        box.setAttribute('data-id', loc.id);
-                                                                        box.style.borderLeftColor = loc.color;
-
-                                                                        var header = document.createElement('div');
-                                                                        header.className = 'env-loc-header';
-
-                                                                        var icon = document.createElement('span');
-                                                                        icon.className = 'env-loc-icon';
-                                                                        icon.style.background = loc.color;
-
-                                                                        var titleEl = document.createElement('p');
-                                                                        titleEl.className = 'env-loc-title';
-                                                                        titleEl.textContent = loc.title;
-
-                                                                        header.appendChild(icon);
-                                                                        header.appendChild(titleEl);
-
-                                                                        var typeEl = document.createElement('div');
-                                                                        typeEl.className = 'env-loc-type';
-                                                                        typeEl.textContent = typeLabels[loc.type] || loc.type;
-
-                                                                        var desc = document.createElement('p');
-                                                                        desc.className = 'env-loc-desc';
-                                                                        desc.textContent = loc.description;
-
-                                                                        box.appendChild(header);
-                                                                        box.appendChild(typeEl);
-                                                                        box.appendChild(desc);
-
-                                                                        overlay.appendChild(box);
-                                                                        boxEls[loc.id] = box;
-                                                    });
-                                    }
-
-                                    // Convert geographic coordinates to pixel position on screen
-                                    function geoToPixel(lng, lat) {
-                                                    try {
-                                                                        var point = map.project([lng, lat]);
-                                                                        return point;
-                                                    } catch (e) {
-                                                                        return null;
-                                                    }
-                                    }
-
-                                    // Check if a pixel point is within the visible map canvas
-                                    function isInViewport(px) {
-                                                    var canvas = map.getCanvas();
-                                                    var w = canvas.offsetWidth;
-                                                    var h = canvas.offsetHeight;
-                                                    var margin = 40; // px — only show if not right at the edge
-                                                    return px.x > margin && px.x < (w - margin) &&
-                                                           px.y > margin && px.y < (h - margin);
-                                    }
-
-                                    // Cluster avoidance: stagger boxes so they don't overlap
-                                    var SLOT_SIZE = 220; // approx box width + gap
-                                    var activeSlots = []; // array of {x, y} occupied by visible boxes this tick
-
-                                    function findFreePosition(px, mapCanvas) {
-                                                    var cw = mapCanvas.offsetWidth;
-                                                    var ch = mapCanvas.offsetHeight;
-                                                    // Try several candidate offsets (right, left, below, above)
-                                                    var candidates = [
-                                                        { dx: 16, dy: -50 },
-                                                        { dx: -(SLOT_SIZE + 10), dy: -50 },
-                                                        { dx: 16, dy: 60 },
-                                                        { dx: -(SLOT_SIZE + 10), dy: 60 }
-                                        ];
-                                        for (var i = 0; i < candidates.length; i++) {
-                                                            var cx = px.x + candidates[i].dx;
-                                                            var cy = px.y + candidates[i].dy;
-                                                            // keep within screen
-                                                            cx = Math.max(8, Math.min(cw - SLOT_SIZE - 8, cx));
-                                                            cy = Math.max(8, Math.min(ch - 140, cy));
-                                                            // check collision with already-placed boxes
-                                                            var ok = true;
-                                                            for (var j = 0; j < activeSlots.length; j++) {
-                                                                                    if (Math.abs(activeSlots[j].x - cx) < SLOT_SIZE &&
-                                                                                        Math.abs(activeSlots[j].y - cy) < 130) {
-                                                                                                                    ok = false;
-                                                                                                                    break;
-                                                                                            }
-                                                            }
-                                                            if (ok) return { x: cx, y: cy };
+                        function waitForMap(cb) {
+                                        if (typeof map !== 'undefined' && map.loaded && map.loaded()) {
+                                                            cb();
+                                        } else if (typeof map !== 'undefined') {
+                                                            map.once('load', cb);
+                                        } else {
+                                                            setTimeout(function () { waitForMap(cb); }, 300);
                                         }
-                                        // Fallback: stack downward
-                                                        var fallbackY = 8;
-                                        for (var k = 0; k < activeSlots.length; k++) {
-                                                            fallbackY = Math.max(fallbackY, activeSlots[k].y + 135);
-                                            }
-                                                        return { x: 8, y: fallbackY };
                         }
 
-                        // Update which boxes are visible and where they sit
-                        var rafPending = false;
-                        function updateBoxVisibility() {
+                        function buildMarkers() {
                                         if (typeof envLocations === 'undefined') return;
-                                        activeSlots = [];
-                                        var canvas = map.getCanvas();
 
                                         envLocations.forEach(function (loc) {
-                                                            var box = boxEls[loc.id];
-                                                            if (!box) return;
-                                                            var px = geoToPixel(loc.coordinates[0], loc.coordinates[1]);
-                                                            if (px && isInViewport(px)) {
-                                                                                    var pos = findFreePosition(px, canvas);
-                                                                                    activeSlots.push(pos);
-                                                                                    box.style.left = pos.x + 'px';
-                                                                                    box.style.top  = pos.y + 'px';
-                                                                                    if (!box.classList.contains('visible')) {
-                                                                                                                box.classList.add('visible');
+                                                            // Determine colour group
+                                                            var colorClass = WATER_TYPES[loc.type] ? 'water' : 'woodland';
+
+                                                            // Create the marker element (a small coloured circle)
+                                                            var el = document.createElement('div');
+                                                            el.className = 'env-pin-marker ' + colorClass;
+                                                            el.title = loc.title;
+
+                                                            // Build the popup HTML
+                                                            var typeLabel = typeLabels[loc.type] || loc.type;
+                                                            var popupColor = WATER_TYPES[loc.type] ? '#4A90D9' : '#4A7C59';
+                                                            var popupHTML =
+                                                                                    '<div class="env-popup-type" style="color:' + popupColor + '">' + typeLabel + '</div>' +
+                                                                                    '<p class="env-popup-title">' + loc.title + '</p>' +
+                                                                                    '<p class="env-popup-desc">' + loc.description + '</p>';
+
+                                                            // Create the Mapbox GL popup (no default close button offset)
+                                                            var popup = new mapboxgl.Popup({
+                                                                                    className: 'env-popup',
+                                                                                    maxWidth: '240px',
+                                                                                    offset: 10,
+                                                                                    closeButton: true,
+                                                                                    closeOnClick: false
+                                                                }).setHTML(popupHTML);
+
+                                                            // Create the marker and attach the popup
+                                                            var marker = new mapboxgl.Marker({ element: el, anchor: 'center' })
+                                                                .setLngLat(loc.coordinates)
+                                                                .setPopup(popup)
+                                                                .addTo(map);
+
+                                                            // Click the marker element to toggle the popup
+                                                            el.addEventListener('click', function (e) {
+                                                                                    e.stopPropagation();
+                                                                                    if (popup.isOpen()) {
+                                                                                                                popup.remove();
+                                                                                                                activePopup = null;
+                                                                                        } else {
+                                                                                                                if (activePopup && activePopup !== popup) {
+                                                                                                                                                activePopup.remove();
+                                                                                                                    }
+                                                                                                                popup.addTo(map);
+                                                                                                                activePopup = popup;
                                                                                         }
-                                                                } else {
-                                                                                    box.classList.remove('visible');
-                                                                }
+                                                            });
                                         });
                         }
 
-                        function scheduleUpdate() {
-                                        if (!rafPending) {
-                                                            rafPending = true;
-                                                            requestAnimationFrame(function () {
-                                                                                    rafPending = false;
-                                                                                    updateBoxVisibility();
-                                                            });
-                                        }
-                        }
-
-                        waitForMap(function () {
-                            buildBoxes();
-                            updateBoxVisibility();
-                            // Re-evaluate on any map movement
-                            map.on('move',   scheduleUpdate);
-                            map.on('zoom',   scheduleUpdate);
-                            map.on('pitch',  scheduleUpdate);
-                            map.on('rotate', scheduleUpdate);
-                            map.on('resize', scheduleUpdate);
-                            // Also update when the page scrolls (map flyTo changes)
-                            window.addEventListener('resize', scheduleUpdate);
-            });
+                        waitForMap(buildMarkers);
             })();
-                          // ────────────────────────────────────────────────────────────────────────
-                          </script>
-                      
+            // ────────────────────────────────────────────────────────────────────────
+    </script>
                 </div>  <!-- closes env-toggle -->   
 </body>
 
