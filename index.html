@@ -1016,21 +1016,7 @@
                                                                 .setPopup(popup)
                                                                 .addTo(map);
 
-                                                            // Click the marker element to toggle the popup
-                                                            el.addEventListener('click', function (e) {
-                                                                                    e.stopPropagation();
-                                                                                    if (popup.isOpen()) {
-                                                                                                                popup.remove();
-                                                                                                                activePopup = null;
-                                                                                        } else {
-                                                                                                                if (activePopup && activePopup !== popup) {
-                                                                                                                                                activePopup.remove();
-                                                                                                                    }
-                                                                                                                popup.addTo(map);
-                                                                                                                activePopup = popup;
-                                                                                        }
-                                                            });
-                                        });
+                        });
                         }
 
                         waitForMap(buildMarkers);
