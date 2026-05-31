@@ -506,56 +506,7 @@
                   paint: { 'line-color': '#b8a882', 'line-width': 1 }
                 });
                 
-                // ── 2. Nature parks ───────────────────────────────────────────────────
-                // 国立公園 F_02_02_02
-                map.addSource('shizen-02', {
-                  type: 'geojson',
-                  data: BASE + 'F_02_02_02/FeatureServer/2020200' + Q
-                });
-                map.addLayer({
-                  id: 'shizen-02-fill', type: 'fill', source: 'shizen-02',
-                  layout: { visibility: 'none' },
-                  paint: { 'fill-color': '#5C9E5C', 'fill-opacity': 0.45 }
-                });
-                map.addLayer({
-                  id: 'shizen-02-line', type: 'line', source: 'shizen-02',
-                  layout: { visibility: 'none' },
-                  paint: { 'line-color': '#3a6e3a', 'line-width': 2 }
-                });
-                
-                // 国定公園 F_02_02_04
-                map.addSource('shizen-04', {
-                  type: 'geojson',
-                  data: BASE + 'F_02_02_04/FeatureServer/2020400' + Q
-                });
-                map.addLayer({
-                  id: 'shizen-04-fill', type: 'fill', source: 'shizen-04',
-                  layout: { visibility: 'none' },
-                  paint: { 'fill-color': '#5C9E5C', 'fill-opacity': 0.35 }
-                });
-                map.addLayer({
-                  id: 'shizen-04-line', type: 'line', source: 'shizen-04',
-                  layout: { visibility: 'none' },
-                  paint: { 'line-color': '#3a6e3a', 'line-width': 1.5 }
-                });
-                
-                // 都道府県立自然公園 F_02_02_05
-                map.addSource('shizen-05', {
-                  type: 'geojson',
-                  data: BASE + 'F_02_02_05/FeatureServer/2020500' + Q
-                });
-                map.addLayer({
-                  id: 'shizen-05-fill', type: 'fill', source: 'shizen-05',
-                  layout: { visibility: 'none' },
-                  paint: { 'fill-color': '#5C9E5C', 'fill-opacity': 0.25 }
-                });
-                map.addLayer({
-                  id: 'shizen-05-line', type: 'line', source: 'shizen-05',
-                  layout: { visibility: 'none' },
-                  paint: { 'line-color': '#3a6e3a', 'line-width': 1 }
-                });
-                
-                // ── 3. Biodiversity satoyama ──────────────────────────────────────────
+                // ── 2. Biodiversity satoyama ──────────────────────────────────────────
                 // 生物多様性保全上重要な場 F_02_03_03
                 map.addSource('biodiversity', {
                   type: 'geojson',
@@ -678,7 +629,7 @@
                   paint: { 'line-color': '#8B1E00', 'line-width': 1, 'line-dasharray': [2, 3] }
                 });
                 
-                // ── 4. Coastal areas ──────────────────────────────────────────────────
+                // ── 3. Marine areas ──────────────────────────────────────────────────
                 // 沿岸域 F_04_06_01
                 map.addSource('kaiki-01', {
                   type: 'geojson',
@@ -687,7 +638,7 @@
                 map.addLayer({
                   id: 'kaiki-01-fill', type: 'fill', source: 'kaiki-01',
                   layout: { visibility: 'none' },
-                  paint: { 'fill-color': '#4A90C4', 'fill-opacity': 0.40 }
+                  paint: { 'fill-color': '#B8D4F0', 'fill-opacity': 0.55 }
                 });
                 map.addLayer({
                   id: 'kaiki-01-line', type: 'line', source: 'kaiki-01',
@@ -703,7 +654,7 @@
                 map.addLayer({
                   id: 'kaiki-02-fill', type: 'fill', source: 'kaiki-02',
                   layout: { visibility: 'none' },
-                  paint: { 'fill-color': '#4A90C4', 'fill-opacity': 0.28 }
+                  paint: { 'fill-color': '#B8D4F0', 'fill-opacity': 0.40 }
                 });
                 map.addLayer({
                   id: 'kaiki-02-line', type: 'line', source: 'kaiki-02',
@@ -719,7 +670,7 @@
                 map.addLayer({
                   id: 'kaiki-03-fill', type: 'fill', source: 'kaiki-03',
                   layout: { visibility: 'none' },
-                  paint: { 'fill-color': '#4A90C4', 'fill-opacity': 0.15 }
+                  paint: { 'fill-color': '#B8D4F0', 'fill-opacity': 0.25 }
                 });
                 map.addLayer({
                   id: 'kaiki-03-line', type: 'line', source: 'kaiki-03',
@@ -727,7 +678,7 @@
                   paint: { 'line-color': '#2a5f8a', 'line-width': 1 }
                 });
                 
-                // ── 5. Trees ──────────────────────────────────────────────────────────
+                // ── 4. Trees ──────────────────────────────────────────────────────────
                 // 巨樹・巨木林 F_04_08_02_01
                 map.addSource('kjurin-01', {
                   type: 'geojson',
@@ -758,7 +709,7 @@
                   }
                 });
 
-                // -- National & Prefectural Nature Conservation Areas F_02_01_05
+                // ── 5. National & Prefectural Nature Conservation Areas F_02_01_05
                 map.addSource('nature-conservation', {
                   type: 'geojson',
                   data: BASE + 'F_02_01_05/FeatureServer/0/query?where=1%3D1&outFields=*&f=geojson'
@@ -772,7 +723,7 @@
                   paint: { 'line-color': '#4A8C4A', 'line-width': 1.5 }
                 });
                 
-                // -- National & Prefectural Wildlife Protection Areas F_02_03_04
+                // ── 6. National & Prefectural Wildlife Protection Areas F_02_03_04
                 map.addSource('wildlife-protection', {
                   type: 'geojson',
                   data: BASE + 'F_02_03_04/FeatureServer/0/query?where=1%3D1&outFields=*&f=geojson'
@@ -786,18 +737,18 @@
                   paint: { 'line-color': '#2D6B50', 'line-width': 1.5 }
                 });
                 
-                // -- Suburban Greenspace Special Conservation Areas F_02_06_01
+                // ── 7. Suburban Greenspace Special Conservation Areas F_02_06_01
                 map.addSource('suburban-greenspace', {
                   type: 'geojson',
                   data: BASE + 'F_02_06_01/FeatureServer/0/query?where=1%3D1&outFields=*&f=geojson'
                 });
                 map.addLayer({ id: 'suburban-greenspace-fill', type: 'fill', source: 'suburban-greenspace',
                   layout: { visibility: 'none' },
-                  paint: { 'fill-color': '#8FB87A', 'fill-opacity': 0.25 }
+                  paint: { 'fill-color': '#D4E8A0', 'fill-opacity': 0.35 }
                 });
                 map.addLayer({ id: 'suburban-greenspace-line', type: 'line', source: 'suburban-greenspace',
                   layout: { visibility: 'none' },
-                  paint: { 'line-color': '#5A8A4A', 'line-width': 1.5 }
+                  paint: { 'line-color': '#8AAA40', 'line-width': 1.5 }
                 });
      });  // end map.on("load")
         
@@ -812,12 +763,12 @@
                     );
                 }
             }
-    function toggleEnvPanel() {
-              const body = document.getElementById('env-toggle-body');
-              const arrow = document.getElementById('env-arrow');
-              const isHidden = body.style.display === 'none';
-              body.style.display = isHidden ? 'block' : 'none';
-              arrow.textContent = isHidden ? '▾' : '▸';
+            function toggleEnvPanel() {
+                const body = document.getElementById('env-toggle-body');
+                const arrow = document.getElementById('env-arrow');
+                const isHidden = body.style.display === 'none';
+                body.style.display = isHidden ? 'block' : 'none';
+                arrow.textContent = isHidden ? '▾' : '▸';
             }
             // setup the instance, pass callback functions
             scroller
@@ -875,7 +826,8 @@
     </script>
 
 <div id="env-toggle">
-  <h4>Environmental Layers</h4>
+    <b class="env-toggle-header" onclick="toggleEnvPanel()">Environmental Layers <span id="env-arrow">▾</span></b>
+    <div id="env-toggle-body">
 
   <label class="env-row">
     <input type="checkbox" onchange="envToggle([
@@ -906,7 +858,7 @@
       'kaiki-02-fill','kaiki-02-line',
       'kaiki-03-fill','kaiki-03-line'
     ], this.checked)">
-    <span class="env-dot" style="background:#4A90C4"></span>
+    <span class="env-dot" style="background:#B8D4F0"></span>
     Key Marine Biodiversity Areas
   </label>
 
@@ -919,6 +871,14 @@
     Large-size Trees and Groves
   </label>
 
+  <label class="env-row">
+    <input type="checkbox" onchange="envToggle([
+      'suburban-greenspace-fill','suburban-greenspace-line'
+    ], this.checked)">
+    <span class="env-dot" style="background:#D4E8A0;border:1px solid #8AAA40"></span>
+    Suburban Greenspace Special Conservation Areas
+  </label>
+        
   <label class="env-row">
     <input type="checkbox" onchange="envToggle([
       'nature-conservation-fill','nature-conservation-line'
@@ -934,16 +894,8 @@
     <span class="env-dot" style="background:#4A8C6F"></span>
     National and Prefectural Wildlife Protection Areas
   </label>
-
-  <label class="env-row">
-    <input type="checkbox" onchange="envToggle([
-      'suburban-greenspace-fill','suburban-greenspace-line'
-    ], this.checked)">
-    <span class="env-dot" style="background:#8FB87A"></span>
-    Suburban Greenspace Special Conservation Areas
-  </label>
-</div>
-    
+</div>  <!-- closes env-toggle-body -->
+</div>  <!-- closes env-toggle -->   
 </body>
 
 </html>
