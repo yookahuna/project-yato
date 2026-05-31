@@ -237,12 +237,12 @@
           height: 12px;
           flex-shrink: 0;
         }
-    </style>
+            /* ── Environmental Location Popup Boxes ─────────────────────────── */
 </head>
 
 <body>
 
-    <div id="map"></div>
+    <div id="map"></div>    <div id="env-location-overlay"></div>
     <div id="story"></div>
 
     <script src="./config.js"></script>
@@ -895,7 +895,186 @@
     National and Prefectural Wildlife Protection Areas
   </label>
 </div>  <!-- closes env-toggle-body -->
-</div>  <!-- closes env-toggle -->   
+
+                    <script>
+                    // ── Environmental Location Overlay ─────────────────────────────────────
+                    // Displays semi-opaque popup boxes for spring water and ecological sites
+                    // when those locations fall within the visible map viewport.
+                    (function () {
+                                // Wait until map is ready before setting up the overlay
+                                function waitForMap(cb) {
+                                                if (typeof map !== 'undefined' && map.loaded && map.loaded()) {
+                                                                    cb();
+                                                } else if (typeof map !== 'undefined') {
+                                                                    map.once('load', cb);
+                                                } else {
+                                                                    setTimeout(function () { waitForMap(cb); }, 300);
+                                }
+                    }
+
+                        // Type labels for display
+                        var typeLabels = {
+                                        'spring': 'Spring Water',
+                                        'wetland': 'Wetland',
+                                        'satoyama': 'Satoyama Edge',
+                                        'heritage-water': 'Heritage Water'
+                            };
+
+                                    // Build the box elements once
+                                    var overlay = document.getElementById('env-location-overlay');
+                                    var boxEls = {}; // keyed by location id
+
+                                    function buildBoxes() {
+                                                    if (typeof envLocations === 'undefined' || !overlay) return;
+                                                    envLocations.forEach(function (loc) {
+                                                                        var box = document.createElement('div');
+                                                                        box.className = 'env-loc-box';
+                                                                        box.setAttribute('data-type', loc.type);
+                                                                        box.setAttribute('data-id', loc.id);
+                                                                        box.style.borderLeftColor = loc.color;
+
+                                                                        var header = document.createElement('div');
+                                                                        header.className = 'env-loc-header';
+
+                                                                        var icon = document.createElement('span');
+                                                                        icon.className = 'env-loc-icon';
+                                                                        icon.style.background = loc.color;
+
+                                                                        var titleEl = document.createElement('p');
+                                                                        titleEl.className = 'env-loc-title';
+                                                                        titleEl.textContent = loc.title;
+
+                                                                        header.appendChild(icon);
+                                                                        header.appendChild(titleEl);
+
+                                                                        var typeEl = document.createElement('div');
+                                                                        typeEl.className = 'env-loc-type';
+                                                                        typeEl.textContent = typeLabels[loc.type] || loc.type;
+
+                                                                        var desc = document.createElement('p');
+                                                                        desc.className = 'env-loc-desc';
+                                                                        desc.textContent = loc.description;
+
+                                                                        box.appendChild(header);
+                                                                        box.appendChild(typeEl);
+                                                                        box.appendChild(desc);
+
+                                                                        overlay.appendChild(box);
+                                                                        boxEls[loc.id] = box;
+                                                    });
+                                    }
+
+                                    // Convert geographic coordinates to pixel position on screen
+                                    function geoToPixel(lng, lat) {
+                                                    try {
+                                                                        var point = map.project([lng, lat]);
+                                                                        return point;
+                                                    } catch (e) {
+                                                                        return null;
+                                                    }
+                                    }
+
+                                    // Check if a pixel point is within the visible map canvas
+                                    function isInViewport(px) {
+                                                    var canvas = map.getCanvas();
+                                                    var w = canvas.offsetWidth;
+                                                    var h = canvas.offsetHeight;
+                                                    var margin = 40; // px — only show if not right at the edge
+                                                    return px.x > margin && px.x < (w - margin) &&
+                                                           px.y > margin && px.y < (h - margin);
+                                    }
+
+                                    // Cluster avoidance: stagger boxes so they don't overlap
+                                    var SLOT_SIZE = 220; // approx box width + gap
+                                    var activeSlots = []; // array of {x, y} occupied by visible boxes this tick
+
+                                    function findFreePosition(px, mapCanvas) {
+                                                    var cw = mapCanvas.offsetWidth;
+                                                    var ch = mapCanvas.offsetHeight;
+                                                    // Try several candidate offsets (right, left, below, above)
+                                                    var candidates = [
+                                                        { dx: 16, dy: -50 },
+                                                        { dx: -(SLOT_SIZE + 10), dy: -50 },
+                                                        { dx: 16, dy: 60 },
+                                                        { dx: -(SLOT_SIZE + 10), dy: 60 }
+                                        ];
+                                        for (var i = 0; i < candidates.length; i++) {
+                                                            var cx = px.x + candidates[i].dx;
+                                                            var cy = px.y + candidates[i].dy;
+                                                            // keep within screen
+                                                            cx = Math.max(8, Math.min(cw - SLOT_SIZE - 8, cx));
+                                                            cy = Math.max(8, Math.min(ch - 140, cy));
+                                                            // check collision with already-placed boxes
+                                                            var ok = true;
+                                                            for (var j = 0; j < activeSlots.length; j++) {
+                                                                                    if (Math.abs(activeSlots[j].x - cx) < SLOT_SIZE &&
+                                                                                        Math.abs(activeSlots[j].y - cy) < 130) {
+                                                                                                                    ok = false;
+                                                                                                                    break;
+                                                                                            }
+                                                            }
+                                                            if (ok) return { x: cx, y: cy };
+                                        }
+                                        // Fallback: stack downward
+                                                        var fallbackY = 8;
+                                        for (var k = 0; k < activeSlots.length; k++) {
+                                                            fallbackY = Math.max(fallbackY, activeSlots[k].y + 135);
+                                            }
+                                                        return { x: 8, y: fallbackY };
+                        }
+
+                        // Update which boxes are visible and where they sit
+                        var rafPending = false;
+                        function updateBoxVisibility() {
+                                        if (typeof envLocations === 'undefined') return;
+                                        activeSlots = [];
+                                        var canvas = map.getCanvas();
+
+                                        envLocations.forEach(function (loc) {
+                                                            var box = boxEls[loc.id];
+                                                            if (!box) return;
+                                                            var px = geoToPixel(loc.coordinates[0], loc.coordinates[1]);
+                                                            if (px && isInViewport(px)) {
+                                                                                    var pos = findFreePosition(px, canvas);
+                                                                                    activeSlots.push(pos);
+                                                                                    box.style.left = pos.x + 'px';
+                                                                                    box.style.top  = pos.y + 'px';
+                                                                                    if (!box.classList.contains('visible')) {
+                                                                                                                box.classList.add('visible');
+                                                                                        }
+                                                                } else {
+                                                                                    box.classList.remove('visible');
+                                                                }
+                                        });
+                        }
+
+                        function scheduleUpdate() {
+                                        if (!rafPending) {
+                                                            rafPending = true;
+                                                            requestAnimationFrame(function () {
+                                                                                    rafPending = false;
+                                                                                    updateBoxVisibility();
+                                                            });
+                                        }
+                        }
+
+                        waitForMap(function () {
+                            buildBoxes();
+                            updateBoxVisibility();
+                            // Re-evaluate on any map movement
+                            map.on('move',   scheduleUpdate);
+                            map.on('zoom',   scheduleUpdate);
+                            map.on('pitch',  scheduleUpdate);
+                            map.on('rotate', scheduleUpdate);
+                            map.on('resize', scheduleUpdate);
+                            // Also update when the page scrolls (map flyTo changes)
+                            window.addEventListener('resize', scheduleUpdate);
+            });
+            })();
+                          // ────────────────────────────────────────────────────────────────────────
+                          </script>
+                      
+                </div>  <!-- closes env-toggle -->   
 </body>
 
 </html>
